@@ -23,7 +23,7 @@ export default {
 
 <template>
     <div id="box-film">
-        <img :src="'https://image.tmdb.org/t/p/w342' + filmImg" :alt="'immagine film:' + filmTitle">
+        <img :src="'https://image.tmdb.org/t/p/original' + filmImg" :alt="'immagine film:' + filmTitle">
 
         <div id="film-description">
             <span><h3>Titolo:</h3> {{ filmTitle }}</span>
@@ -39,12 +39,20 @@ export default {
 
 #box-film {
     position: relative;
+    width: calc(100% / 6 - 15px/5 * 6);
+    min-width: 200px;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 
     #film-description {
-
-        display: none;
+        width: 100%;
         height: 100%;
         padding: 10px;
+
+        display: none;
         overflow-y: auto;
 
         position: absolute;

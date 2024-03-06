@@ -20,28 +20,23 @@ export default {
 <template>
     <main>
         <div id="container">
-            <div id="films-container">
-                <FilmItem v-for="film in store.cards" :filmTitle="film.title" :filmOriginalTitle="film.original_title" :filmLanguage="film.original_language" :filmScore="film.vote_average" :filmOverview="film.overview" :filmImg="film.poster_path"></FilmItem>
-            </div>
+            <FilmItem v-for="film in store.cards" :filmTitle="film.title" :filmOriginalTitle="film.original_title" :filmLanguage="film.original_language" :filmScore="film.vote_average" :filmOverview="film.overview" :filmImg="film.poster_path"></FilmItem>
         </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
     #container {
+        width: 90%;
+        margin: auto;
         overflow-x: hidden;
 
-        #films-container {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            gap: 15px;
-            flex-flow: row wrap;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        flex-flow: row wrap;
 
-            min-height: 100vh;
-            padding: 180px 50px 50px;
-
-            background-color: #4C64F2;
-        }
+        min-height: 100vh;
+        padding: 180px 50px 50px;        
     }
 </style>

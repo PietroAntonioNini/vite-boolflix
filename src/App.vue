@@ -36,9 +36,13 @@ export default {
 <template>
   <AppNav @search="searchFilm()"></AppNav>
   
-  <AppMain></AppMain>
+  <div id="container">
+    <AppMain></AppMain>
+  </div>
 </template>
 
-<style>
-
+<style lang="scss" scoped>
+#container {
+  background-color: #4C64F2;
+}
 </style>
