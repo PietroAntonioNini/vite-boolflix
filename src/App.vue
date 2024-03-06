@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import { store } from './store';
+import AppNav from './components/AppNav.vue'
 
 export default {
     data() {
@@ -16,7 +17,7 @@ export default {
     },
 
     components: {
-
+      AppNav,
     },
 
     methods: {
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <template>
-  
+  <AppNav></AppNav>
 </template>
 
 <style>
