@@ -19,8 +19,8 @@ export default {
         </div>
 
         <div id="search">
-            <input type="text" placeholder="Cerca">
-            <button type="submit">Cerca</button>
+            <input type="text" placeholder="Cerca" v-model="store.searchText">
+            <button type="submit" @click="$emit('search')">Cerca</button>
         </div>
     </nav>
 </template>
@@ -28,6 +28,12 @@ export default {
 <style lang="scss" scoped>
 
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;

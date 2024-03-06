@@ -20,16 +20,28 @@ export default {
 <template>
     <main>
         <div id="container">
-            <FilmItem v-for="film in store.cards" :filmTitle="film.title" :filmOriginalTitle="film.original_title" :filmLanguage="film.original_language" :filmScore="film.vote_average" :filmImg="film.poster_path"></FilmItem>
+            <div id="films-container">
+                <FilmItem v-for="film in store.cards" :filmTitle="film.title" :filmOriginalTitle="film.original_title" :filmLanguage="film.original_language" :filmScore="film.vote_average" :filmOverview="film.overview" :filmImg="film.poster_path"></FilmItem>
+            </div>
         </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
     #container {
-        width: 100vw;
-        height: calc(100vh - 140px);
-        padding: 50px;
-        background-color: #4C64F2;
+        overflow-x: hidden;
+
+        #films-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 15px;
+            flex-flow: row wrap;
+
+            min-height: 100vh;
+            padding: 180px 50px 50px;
+
+            background-color: #4C64F2;
+        }
     }
-</style>./FilmItem.vue
+</style>
