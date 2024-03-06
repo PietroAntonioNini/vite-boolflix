@@ -61,10 +61,17 @@ nav {
         button {
             width: 100px;
 
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: bold;
             text-transform: uppercase;
             border: 0;
             border-radius: 8px;
+            cursor: pointer;
+            background-color: #0D1C73;
+
+            &:hover {
+                background-color: #4C64F2;
+            }
         }
     }
 }
