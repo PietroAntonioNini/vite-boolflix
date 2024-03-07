@@ -15,7 +15,7 @@ export default {
 <template>
     <nav>
         <div id="logo">
-            <img src="/public/img/260BFE12-83A1-4D85-89FC-2D9BBC105EFA.png" alt="logo">
+            <img src="/public/img/logo.png" alt="logo">
         </div>
 
         <div id="search">

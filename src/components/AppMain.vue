@@ -1,6 +1,6 @@
 <script>
 import { store } from '../store';
-import FilmItem from './FilmItem.vue'
+import CardItem from './CardItem.vue'
 
 export default {
     name: 'AppMain',
@@ -12,23 +12,30 @@ export default {
     },
 
     components: {
-        FilmItem,
+        CardItem,
     }
 }
 </script>
 
 <template>
     <main>
-        <div id="container-film">
-            <div id="category" v-if="store.cards != '' "><h2>Film</h2></div>
+        <div id="container-film" v-if="store.films != '' ">
+            <div id="category"><h2>Film</h2></div>
 
-            <FilmItem v-for="film in store.cards" :filmTitle="film.title" :filmOriginalTitle="film.original_title" :filmLanguage="film.original_language" :filmScore="film.vote_average" :filmOverview="film.overview" :filmImg="film.poster_path"></FilmItem>
+            <CardItem v-for="film in store.films" :cardTitle="film.title" :cardOriginalTitle="film.original_title" :cardLanguage="film.original_language" :cardScore="film.vote_average" :cardOverview="film.overview" :cardImg="film.poster_path"></CardItem>
+        </div>
+
+        <div id="container-serie" v-if="store.series != '' ">
+            <div id="category"><h2>Serie TV</h2></div>
+
+            <CardItem v-for="serie in store.series" :cardTitle="serie.name" :cardOriginalTitle="serie.original_name" :cardLanguage="serie.original_language" :cardScore="serie.vote_average" :cardOverview="serie.overview" :cardImg="serie.poster_path"></CardItem>
         </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
-    #container-film {
+    #container-film, 
+    #container-serie {
         width: 90%;
         margin: auto;
         overflow-x: hidden;

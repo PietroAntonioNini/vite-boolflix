@@ -2,7 +2,7 @@
 import { store } from '../store';
 
 export default {
-    name: 'FilmItem',
+    name: 'CardItem',
 
     data() {
         return {
@@ -19,7 +19,8 @@ export default {
                 'ja': 'jp',
                 'ko': 'kr',
                 'hi': 'in',
-                'ta': 'th'
+                'ta': 'th',
+                'zh': 'cn',
             };
             //restituisci il codice della lingua o la stessa lingua se non trovato
             return languageCodes[language] || language;
@@ -27,40 +28,40 @@ export default {
     },
 
     props: {
-        filmTitle: String,
-        filmOriginalTitle: String,
-        filmLanguage: String,
-        filmImg: String,
-        filmScore: Number,
-        filmOverview: String,
+        cardTitle: String,
+        cardOriginalTitle: String,
+        cardLanguage: String,
+        cardImg: String,
+        cardScore: Number,
+        cardOverview: String,
     }
 }
 </script>
 
 <template>
-    <div id="box-film">
+    <div id="box-film" v-if="cardImg != OK">
         <div class="film-content">
             <!-- copertina -->
-            <img :src="'https://image.tmdb.org/t/p/original' + filmImg" :alt="'immagine film:' + filmTitle">
+            <img :src="'https://image.tmdb.org/t/p/original' + cardImg" :alt="'immagine film:' + cardTitle">
     
             <!-- descrizionedietro l'immagine -->
             <div id="film-description">
                 <!-- titoli -->
-                <span><h3>Titolo:</h3> {{ filmTitle }}</span>
-                <span><h3>Titolo originale:</h3> {{ filmOriginalTitle }}</span>
+                <span><h3>Titolo:</h3> {{ cardTitle }}</span>
+                <span><h3>Titolo originale:</h3> {{ cardOriginalTitle }}</span>
     
                 <!-- lingua -->
-                <span class="language-img"><h3>Lingua:</h3><img :src="'https://flagcdn.com/w20/' + getLanguageCode(filmLanguage) + '.jpg'" alt=""></span>
-    
+                <span class="language-img"><h3>Lingua:</h3><img :src="'https://flagcdn.com/w20/' + getLanguageCode(cardLanguage) + '.jpg'" alt=""></span>
+
                 <!-- voto -->
                 <span><h3>Voto:</h3> 
                     <span v-for="star in 5" :key="star">
-                        <i :class="{ 'fas fa-star': (filmScore / 2) >= star, 'far fa-star': (filmScore / 2) < star }" :style="{ color: (filmScore / 2) >= star ? 'yellow' : 'gray' }"></i>
+                        <i :class="{ 'fas fa-star': (cardScore / 2) >= star, 'far fa-star': (cardScore / 2) < star }" :style="{ color: (cardScore / 2) >= star ? 'yellow' : 'gray' }"></i>
                     </span>
                 </span>
 
                 <!-- trama -->
-                <span v-if="filmOverview != ''"><h3>Overview:</h3> {{ filmOverview }}</span>
+                <span v-if="cardOverview != ''"><h3>Overview:</h3> {{ cardOverview }}</span>
             </div>
         </div>
     </div>
@@ -82,7 +83,6 @@ export default {
         img {
             width: 100%;
             height: 100%;
-            transform-origin: center;
         }
     
         #film-description {
