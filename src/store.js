@@ -8,4 +8,5 @@ export const store = reactive({
     genres:[],
 
     searchText:'',
+    selectedGenres: '0',
 });

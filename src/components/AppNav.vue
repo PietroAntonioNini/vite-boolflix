@@ -19,8 +19,8 @@ export default {
         </div>
 
         <div id="search">
-            <select name="Genre">
-                <option value="">Tutti</option>
+            <select name="Genre" @change="$emit('option')" v-model="store.selectedGenres">
+                <option value="0">Tutti</option>
                 <option :value="genre.id" v-for="genre in store.genres">{{ genre.name }}</option>
             </select>
             

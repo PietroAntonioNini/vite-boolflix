@@ -5,47 +5,50 @@ import AppNav from './components/AppNav.vue'
 import AppMain from './components/AppMain.vue'
 
 export default {
-    data() {
-        return {
-          store,
-        }
-    },
 
-    created() {
-        //film      
-        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-          this.store.films = res.data.results;
-        });
+  data() {
+      return {
+        store,
+      }
+  },
+  created() {
 
-        //serie TV
-        axios.get('https://api.themoviedb.org/3/discover/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-          this.store.series = res.data.results;
-        });
+      //film      
+      axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+        this.store.films = res.data.results;
+        console.log(store.films)
+      });
 
-        //generi
-        axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-          this.store.genres = res.data.genres;
-        });
-    },
+      //serie TV
+      axios.get('https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+        this.store.series = res.data.results;
+        console.log(store.series)
+      });
 
-    components: {
-      AppNav,
-      AppMain,
-    },
+      //generi
+      axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+        this.store.genres = res.data.genres;
+      });
+  },
 
-    methods: {
+  components: {
+    AppNav,
+    AppMain,
+  },
 
-      searchContent() {
+  methods: {
+
+    searchContent() {
 
         //se il campo input è vuoto restituisco tutti i contenuti altrimenti quelli cercati
         if (!this.store.searchText || this.store.searchText.trim() === '') {
           //film      
-          axios.get('https://api.themoviedb.org/3/discover/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+          axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
             this.store.films = res.data.results;
           });
 
           //serie TV
-          axios.get('https://api.themoviedb.org/3/discover/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+          axios.get('https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
             this.store.series = res.data.results;
           });
 
@@ -60,13 +63,35 @@ export default {
             this.store.series = res.data.results;
           });
         }
-      }
     },
+
+    //filtra in base al genere di contenuto scelto dalla lista
+    filterGenre() {
+
+      let urlFilm = 'https://api.themoviedb.org/3/discover/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07&with_genres=';
+
+      if (this.store.selectedGenres != 0) {
+
+        urlFilm += this.store.selectedGenres;
+
+      } else {
+
+        urlFilm = 'https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+
+      }
+
+      axios.get(urlFilm).then(res => {
+        this.store.films = res.data.results
+      });
+     
+    }
+  }
 }
+
 </script>
 
 <template>
-  <AppNav @search="searchContent()"></AppNav>
+  <AppNav @search="searchContent()" @option="filterGenre()"></AppNav>
   
   <div id="container">
     <AppMain></AppMain>
