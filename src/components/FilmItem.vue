@@ -10,6 +10,22 @@ export default {
         }
     },
 
+    methods: {
+        getLanguageCode(language) {
+
+            //cambio i codici delle lingue in base alle condizioni specificate
+            const languageCodes = {
+                'en': 'us',
+                'ja': 'jp',
+                'ko': 'kr',
+                'hi': 'in',
+                'ta': 'th'
+            };
+            //restituisci il codice della lingua o la stessa lingua se non trovato
+            return languageCodes[language] || language;
+        },
+    },
+
     props: {
         filmTitle: String,
         filmOriginalTitle: String,
@@ -28,7 +44,9 @@ export default {
         <div id="film-description">
             <span><h3>Titolo:</h3> {{ filmTitle }}</span>
             <span><h3>Titolo originale:</h3> {{ filmOriginalTitle }}</span>
-            <span><h3>Lingua:</h3> {{ filmLanguage }}</span>
+
+            <span class="language-img"><h3>Lingua:</h3><img :src="'https://flagcdn.com/w20/' + getLanguageCode(filmLanguage) + '.jpg'" alt=""></span>
+
             <span><h3>Voto:</h3> {{ filmScore }}</span>
             <span v-if="filmOverview != ''"><h3>Overview:</h3> {{ filmOverview }}</span>
         </div>
@@ -49,8 +67,9 @@ export default {
 
     #film-description {
         width: 100%;
-        height: 100%;
-        padding: 10px;
+        height: 90%;
+        margin: 10px 0;
+        padding: 0 20px;
 
         display: none;
         overflow-y: auto;
@@ -60,6 +79,11 @@ export default {
 
         font-size: 12px;
 
+        .language-img img {
+            width: 30px;
+            height: 20px;
+            filter: brightness(100%);
+        }
     }
 
     &:hover #film-description {
