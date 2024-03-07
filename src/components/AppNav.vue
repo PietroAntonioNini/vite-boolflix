@@ -19,7 +19,7 @@ export default {
         </div>
 
         <div id="search">
-            <input type="text" placeholder="Cerca" v-model="store.searchText">
+            <input type="text" placeholder="Cerca" v-model="store.searchText" @keyup.enter="$emit('search')">
             <button type="submit" @click="$emit('search')">Cerca</button>
         </div>
     </nav>

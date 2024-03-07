@@ -12,11 +12,11 @@ export default {
     },
 
     created() {
-        axios.get('https://api.themoviedb.org/3/search/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07&query=ritorno+al+futuro').then(res => {
+        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
           this.store.films = res.data.results;
         });
 
-        axios.get('https://api.themoviedb.org/3/search/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07&query=').then(res => {
+        axios.get('https://api.themoviedb.org/3/discover/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
           this.store.series = res.data.results;
         });
     },
