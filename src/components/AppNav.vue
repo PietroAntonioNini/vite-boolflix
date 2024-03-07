@@ -19,6 +19,11 @@ export default {
         </div>
 
         <div id="search">
+            <select name="Genre">
+                <option value="">Tutti</option>
+                <option :value="genre.id" v-for="genre in store.genres">{{ genre.name }}</option>
+            </select>
+            
             <input type="text" placeholder="Cerca" v-model="store.searchText" @keyup.enter="$emit('search')">
             <button type="submit" @click="$emit('search')">Cerca</button>
         </div>
@@ -52,11 +57,19 @@ nav {
     }
 
     #search {
-        width: 550px;
+        width: 560px;
         display: flex;
-        justify-content: space-between;
+        gap: 10px;
+
+        select {
+            padding-left: 15px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
         input {
-            width: 400px;
+            width: 350px;
             height: 40px;
             padding: 15px;
 
