@@ -47,7 +47,13 @@ export default {
 
             <span class="language-img"><h3>Lingua:</h3><img :src="'https://flagcdn.com/w20/' + getLanguageCode(filmLanguage) + '.jpg'" alt=""></span>
 
-            <span><h3>Voto:</h3> {{ filmScore }}</span>
+            <span><h3>Voto:</h3> 
+                <span v-for="star in 5" :key="star">
+                    <i :class="{ 'fas fa-star': (filmScore / 2) >= star, 'far fa-star': (filmScore / 2) < star }" :style="{ color: (filmScore / 2) >= star ? 'yellow' : 'gray' }"></i>
+                </span>
+            </span>
+
+
             <span v-if="filmOverview != ''"><h3>Overview:</h3> {{ filmOverview }}</span>
         </div>
     </div>
