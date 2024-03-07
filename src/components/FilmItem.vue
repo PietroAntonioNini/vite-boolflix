@@ -39,22 +39,29 @@ export default {
 
 <template>
     <div id="box-film">
-        <img :src="'https://image.tmdb.org/t/p/original' + filmImg" :alt="'immagine film:' + filmTitle">
-
-        <div id="film-description">
-            <span><h3>Titolo:</h3> {{ filmTitle }}</span>
-            <span><h3>Titolo originale:</h3> {{ filmOriginalTitle }}</span>
-
-            <span class="language-img"><h3>Lingua:</h3><img :src="'https://flagcdn.com/w20/' + getLanguageCode(filmLanguage) + '.jpg'" alt=""></span>
-
-            <span><h3>Voto:</h3> 
-                <span v-for="star in 5" :key="star">
-                    <i :class="{ 'fas fa-star': (filmScore / 2) >= star, 'far fa-star': (filmScore / 2) < star }" :style="{ color: (filmScore / 2) >= star ? 'yellow' : 'gray' }"></i>
+        <div class="film-content">
+            <!-- copertina -->
+            <img :src="'https://image.tmdb.org/t/p/original' + filmImg" :alt="'immagine film:' + filmTitle">
+    
+            <!-- descrizionedietro l'immagine -->
+            <div id="film-description">
+                <!-- titoli -->
+                <span><h3>Titolo:</h3> {{ filmTitle }}</span>
+                <span><h3>Titolo originale:</h3> {{ filmOriginalTitle }}</span>
+    
+                <!-- lingua -->
+                <span class="language-img"><h3>Lingua:</h3><img :src="'https://flagcdn.com/w20/' + getLanguageCode(filmLanguage) + '.jpg'" alt=""></span>
+    
+                <!-- voto -->
+                <span><h3>Voto:</h3> 
+                    <span v-for="star in 5" :key="star">
+                        <i :class="{ 'fas fa-star': (filmScore / 2) >= star, 'far fa-star': (filmScore / 2) < star }" :style="{ color: (filmScore / 2) >= star ? 'yellow' : 'gray' }"></i>
+                    </span>
                 </span>
-            </span>
 
-
-            <span v-if="filmOverview != ''"><h3>Overview:</h3> {{ filmOverview }}</span>
+                <!-- trama -->
+                <span v-if="filmOverview != ''"><h3>Overview:</h3> {{ filmOverview }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -66,40 +73,55 @@ export default {
     width: calc(100% / 6 - 15px/5 * 6);
     min-width: 200px;
 
-    img {
-        width: 100%;
-        height: 100%;
-    }
+    .film-content {
+        position: relative;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
 
-    #film-description {
-        width: 100%;
-        height: 90%;
-        margin: 10px 0;
-        padding: 0 20px;
+        img {
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+        }
+    
+        #film-description {
+            width: 100%;
+            height: 90%;
+            margin: 10px 0;
+            padding: 0 20px;
+    
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            overflow-y: auto;
+    
+            position: absolute;
+            top: 0;
+            left: 0;
+    
+            font-size: 12px;
 
-        display: none;
-        overflow-y: auto;
-
-        position: absolute;
-        top: 0;
-
-        font-size: 12px;
-
-        .language-img img {
-            width: 30px;
-            height: 20px;
-            filter: brightness(100%);
+            .language-img img {
+                width: 30px;
+                height: 20px;
+                filter: brightness(100%);
+            }
         }
     }
 
-    &:hover #film-description {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+
+    &:hover .film-content {
+        transform: rotateY(180deg);
     }
 
-    &:hover img {
-        filter: brightness(20%);
+    &:hover .film-content img {
+        filter: brightness(0);
+    }
+
+    &:hover .film-content #film-description {
+        display: flex;
+        transform: rotateY(180deg);
     }
 }
  
