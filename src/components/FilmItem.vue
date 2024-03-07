@@ -87,9 +87,8 @@ export default {
     
         #film-description {
             width: 100%;
-            height: 90%;
-            margin: 10px 0;
-            padding: 0 20px;
+            height: 98%;
+            padding: 10px 20px;
     
             display: none;
             flex-direction: column;

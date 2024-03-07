@@ -19,17 +19,20 @@ export default {
 
 <template>
     <main>
-        <div id="container">
+        <div id="container-film">
+            <div id="category" v-if="store.cards != '' "><h2>Film</h2></div>
+
             <FilmItem v-for="film in store.cards" :filmTitle="film.title" :filmOriginalTitle="film.original_title" :filmLanguage="film.original_language" :filmScore="film.vote_average" :filmOverview="film.overview" :filmImg="film.poster_path"></FilmItem>
         </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
-    #container {
+    #container-film {
         width: 90%;
         margin: auto;
         overflow-x: hidden;
+        position: relative;
 
         display: flex;
         align-items: flex-start;
@@ -37,6 +40,12 @@ export default {
         flex-flow: row wrap;
 
         min-height: 100vh;
-        padding: 180px 50px 50px;        
+        padding: 230px 50px 50px;     
+        
+        #category {
+            position: absolute;
+            top: 140px;
+            font-size: 40px;
+        }
     }
 </style>
