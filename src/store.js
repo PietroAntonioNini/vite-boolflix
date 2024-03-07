@@ -5,5 +5,7 @@ export const store = reactive({
 
     series: [],
 
+    genres:[],
+
     searchText:'',
 });
