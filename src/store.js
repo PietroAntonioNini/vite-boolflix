@@ -5,12 +5,14 @@ export const store = reactive({
 
     series: [],
 
-    genres:[],
+    genresFilms:[],
+    genresSeries:[],
 
     searchText:'',
 
     //Genere selezionato (default nessuno)
-    selectedGenres: 0,
+    selectedFilmsGenres: 0,
+    selectedSeriesGenres: 0,
 
     //Categoria selezionata (default Home)
     activeButton: 0,

@@ -26,18 +26,22 @@ export default {
             <img src="/public/img/logo.png" alt="logo">
         </div>
 
-        <div>
-            <ul id="button-category">
-                <li v-for="(button, index) in buttons" @click="activateButton(index)" :class="{ active: store.activeButton === index }"> {{ button }} </li>
-            </ul>
-        </div>
+        <ul id="button-category">
+            <li v-for="(button, index) in buttons" @click="activateButton(index)" :class="{ active: store.activeButton === index }"> {{ button }} </li>
+        </ul>
 
         <div id="search">
 
-            <!-- selezione in base al genere -->
-            <select name="Genre" @change="$emit('option')" v-model="store.selectedGenres" v-if="store.activeButton == 1">
+            <!-- seleziona film in base al genere -->
+            <select name="Genre" @change="$emit('option')" v-model="store.selectedFilmsGenres" v-if="store.activeButton == 1">
                 <option value="0">Tutti</option>
-                <option :value="genre.id" v-for="genre in store.genres">{{ genre.name }}</option>
+                <option :value="genre.id" v-for="genre in store.genresFilms">{{ genre.name }}</option>
+            </select>
+
+            <!-- seleziona serie in base al genere -->
+            <select name="Genre" @change="$emit('option')" v-model="store.selectedSeriesGenres" v-if="store.activeButton == 2">
+                <option value="0">Tutti</option>
+                <option :value="genre.id" v-for="genre in store.genresSeries">{{ genre.name }}</option>
             </select>
             
             <input type="text" placeholder="Cerca" v-model="store.searchText" @keyup.enter="$emit('search')">
@@ -64,7 +68,7 @@ nav {
 
     #logo {
         width: 180px;
-        height: 100px;
+        height: 80px;
     
         img {
             width: 100%;
@@ -74,6 +78,7 @@ nav {
 
     #button-category {
         display: flex;
+        justify-content: center;
         gap: 40px;
         list-style-type: none;
 
@@ -100,7 +105,8 @@ nav {
         gap: 10px;
 
         select {
-            padding-left: 15px;
+            width: 140px;
+            padding-left: 5px;
             border: 0;
             border-radius: 8px;
             cursor: pointer;

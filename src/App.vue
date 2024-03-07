@@ -25,9 +25,13 @@ export default {
         console.log(store.series)
       });
 
-      //generi
+      //generi (Film e Serie)
       axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-        this.store.genres = res.data.genres;
+        this.store.genresFilms = res.data.genres;
+      });
+
+      axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+        this.store.genresSeries = res.data.genres;
       });
   },
 
@@ -66,14 +70,14 @@ export default {
         }
     },
 
-    //filtra in base al genere di contenuto scelto dalla lista
-    filterGenre() {
+    //filtra i film in base al genere di contenuto scelto dalla lista
+    filterFilmsGenre() {
 
       let urlFilm = 'https://api.themoviedb.org/3/discover/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07&with_genres=';
 
-      if (this.store.selectedGenres != 0) {
+      if (this.store.selectedFilmsGenres != 0) {
 
-        urlFilm += this.store.selectedGenres;
+        urlFilm += this.store.selectedFilmsGenres;
 
       } else {
 
@@ -85,6 +89,27 @@ export default {
         this.store.films = res.data.results
       });
      
+    },
+
+    //filtra le serie TV in base al genere di contenuto scelto dalla lista
+    filterSeriesGenre() {
+
+    let urlSeries = 'https://api.themoviedb.org/3/discover/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07&with_genres=';
+
+    if (this.store.selectedSeriesGenres != 0) {
+
+      urlSeries += this.store.selectedSeriesGenres;
+
+    } else {
+
+      urlSeries = 'https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+
+    }
+
+    axios.get(urlSeries).then(res => {
+      this.store.series = res.data.results
+    });
+
     }
   }
 }
@@ -93,7 +118,7 @@ export default {
 
 <template>
   <!-- menu con i filtri e il campo di ricerca -->
-  <AppNav @search="searchContent()" @option="filterGenre()"></AppNav>
+  <AppNav @search="searchContent()" @option="filterFilmsGenre(),filterSeriesGenre()"></AppNav>
   
   <!-- container dei film e delle serie tv -->
   <div id="container">
