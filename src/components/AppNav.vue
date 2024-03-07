@@ -6,7 +6,15 @@ export default {
 
     data() {
         return {
-          store,
+            store,
+
+            buttons: ['Home', 'Film', 'Serie Tv'],
+        }
+    },
+
+    methods: {
+        activateButton(index) {
+            this.store.activeButton = index;
         }
     },
 }
@@ -18,8 +26,16 @@ export default {
             <img src="/public/img/logo.png" alt="logo">
         </div>
 
+        <div>
+            <ul id="button-category">
+                <li v-for="(button, index) in buttons" @click="activateButton(index)" :class="{ active: store.activeButton === index }"> {{ button }} </li>
+            </ul>
+        </div>
+
         <div id="search">
-            <select name="Genre" @change="$emit('option')" v-model="store.selectedGenres">
+
+            <!-- selezione in base al genere -->
+            <select name="Genre" @change="$emit('option')" v-model="store.selectedGenres" v-if="store.activeButton == 1">
                 <option value="0">Tutti</option>
                 <option :value="genre.id" v-for="genre in store.genres">{{ genre.name }}</option>
             </select>
@@ -56,9 +72,31 @@ nav {
         }
     }
 
-    #search {
-        width: 560px;
+    #button-category {
         display: flex;
+        gap: 40px;
+        list-style-type: none;
+
+        li {
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            border-bottom: 5px solid #000000;
+            color: #00E06B;
+
+            &:hover,
+            &.active {
+                border-bottom: 5px solid #00E06B;
+            }
+        }
+    }
+
+    #search {
+        width: 600px;
+        display: flex;
+        justify-content: flex-end;
         gap: 10px;
 
         select {

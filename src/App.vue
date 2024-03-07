@@ -38,6 +38,7 @@ export default {
 
   methods: {
 
+    //filtra in base al nome ricercato
     searchContent() {
 
         //se il campo input è vuoto restituisco tutti i contenuti altrimenti quelli cercati
@@ -91,8 +92,10 @@ export default {
 </script>
 
 <template>
+  <!-- menu con i filtri e il campo di ricerca -->
   <AppNav @search="searchContent()" @option="filterGenre()"></AppNav>
   
+  <!-- container dei film e delle serie tv -->
   <div id="container">
     <AppMain></AppMain>
   </div>

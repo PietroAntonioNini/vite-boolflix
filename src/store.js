@@ -8,5 +8,10 @@ export const store = reactive({
     genres:[],
 
     searchText:'',
-    selectedGenres: '0',
+
+    //Genere selezionato (default nessuno)
+    selectedGenres: 0,
+
+    //Categoria selezionata (default Home)
+    activeButton: 0,
 });
