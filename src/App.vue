@@ -16,13 +16,11 @@ export default {
       //film      
       axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
         this.store.films = res.data.results;
-        console.log(store.films)
       });
 
       //serie TV
       axios.get('https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
         this.store.series = res.data.results;
-        console.log(store.series)
       });
 
       //generi (Film e Serie)
@@ -45,29 +43,29 @@ export default {
     //filtra in base al nome ricercato
     searchContent() {
 
-        //se il campo input è vuoto restituisco tutti i contenuti altrimenti quelli cercati
-        if (!this.store.searchText || this.store.searchText.trim() === '') {
-          //film      
-          axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-            this.store.films = res.data.results;
-          });
+      //se il campo input è vuoto restituisco tutti i contenuti altrimenti quelli cercati
+      if (!this.store.searchText || this.store.searchText.trim() === '') {
+        //film      
+        axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+          this.store.films = res.data.results;
+        });
 
-          //serie TV
-          axios.get('https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-            this.store.series = res.data.results;
-          });
+        //serie TV
+        axios.get('https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+          this.store.series = res.data.results;
+        });
 
-        } else {
-          //film
-          axios.get('https://api.themoviedb.org/3/search/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07&query=' + this.store.searchText).then(res => {
-            this.store.films = res.data.results;
-          });
+      } else {
+        //film
+        axios.get('https://api.themoviedb.org/3/search/movie?api_key=9b7fdd843817417b0e4e84b2c0542c07&query=' + this.store.searchText).then(res => {
+          this.store.films = res.data.results;
+        });
           
-          //serie TV
-          axios.get('https://api.themoviedb.org/3/search/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07&query=' + this.store.searchText).then(res => {
-            this.store.series = res.data.results;
-          });
-        }
+        //serie TV
+        axios.get('https://api.themoviedb.org/3/search/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07&query=' + this.store.searchText).then(res => {
+          this.store.series = res.data.results;
+        });
+      }
     },
 
     //filtra i film in base al genere di contenuto scelto dalla lista
@@ -86,7 +84,7 @@ export default {
       }
 
       axios.get(urlFilm).then(res => {
-        this.store.films = res.data.results
+        this.store.films = res.data.results;
       });
      
     },
@@ -94,21 +92,54 @@ export default {
     //filtra le serie TV in base al genere di contenuto scelto dalla lista
     filterSeriesGenre() {
 
-    let urlSeries = 'https://api.themoviedb.org/3/discover/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07&with_genres=';
+      let urlSeries = 'https://api.themoviedb.org/3/discover/tv?api_key=9b7fdd843817417b0e4e84b2c0542c07&with_genres=';
 
-    if (this.store.selectedSeriesGenres != 0) {
+      if (this.store.selectedSeriesGenres != 0) {
 
-      urlSeries += this.store.selectedSeriesGenres;
+        urlSeries += this.store.selectedSeriesGenres;
 
-    } else {
+      } else {
 
-      urlSeries = 'https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+        urlSeries = 'https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07';
 
-    }
+      }
 
-    axios.get(urlSeries).then(res => {
-      this.store.series = res.data.results
-    });
+      axios.get(urlSeries).then(res => {
+        this.store.series = res.data.results;
+      });
+
+    },
+
+    //filtra i contenuti in base alla scelta dei bottoni nel nav
+    filterContentButtons() {
+
+      let urlFilm = '';
+      let urlSerie = '';
+
+      if (this.store.activeButton == 3) {
+
+        urlFilm = 'https://api.themoviedb.org/3/movie/top_rated?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+        urlSerie = 'https://api.themoviedb.org/3/tv/top_rated?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+
+      } else if (this.store.activeButton == 4) {
+        
+        urlFilm = 'https://api.themoviedb.org/3/movie/upcoming?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+        urlSerie = 'https://api.themoviedb.org/3/tv/upcoming?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+
+      } else {
+
+        urlFilm = 'https://api.themoviedb.org/3/trending/movie/day?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+        urlSerie = 'https://api.themoviedb.org/3/trending/tv/day?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+
+      }
+
+      axios.get(urlFilm).then(res => {
+        this.store.films = res.data.results;
+      });
+
+      axios.get(urlSerie).then(res => {
+        this.store.series = res.data.results;
+      });
 
     }
   }
@@ -118,7 +149,7 @@ export default {
 
 <template>
   <!-- menu con i filtri e il campo di ricerca -->
-  <AppNav @search="searchContent()" @option="filterFilmsGenre(),filterSeriesGenre()"></AppNav>
+  <AppNav @search="searchContent()" @option="filterFilmsGenre(),filterSeriesGenre()" @change="filterContentButtons()"></AppNav>
   
   <!-- container dei film e delle serie tv -->
   <div id="container">

@@ -8,7 +8,7 @@ export default {
         return {
             store,
 
-            buttons: ['Home', 'Film', 'Serie Tv'],
+            buttons: ['Home', 'Film', 'Serie Tv', 'Top Rated', 'Upcoming'],
         }
     },
 
@@ -26,7 +26,7 @@ export default {
             <img src="/public/img/logo.png" alt="logo">
         </div>
 
-        <ul id="button-category">
+        <ul id="button-category" @click="$emit('change')">
             <li v-for="(button, index) in buttons" @click="activateButton(index)" :class="{ active: store.activeButton === index }"> {{ button }} </li>
         </ul>
 
