@@ -8,7 +8,7 @@ export default {
         return {
             store,
 
-            buttons: ['Home', 'Film', 'Serie Tv', 'Top Rated', 'Upcoming'],
+            buttons: ['Home', 'Film', 'Serie Tv', 'Top Rated', 'Popular'],
         }
     },
 

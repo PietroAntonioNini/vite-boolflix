@@ -25,13 +25,27 @@ export default {
             //restituisci il codice della lingua o la stessa lingua se non trovato
             return languageCodes[language] || language;
         },
+
+        activeCast: '',
+
+        showCast() {
+
+            if(this.activeCast != true) {
+                this.activeCast= true;
+
+            } else {
+                this.activeCast= false;
+            }
+            this.$forceUpdate();
+        },
+
     },
 
     props: {
+        cardImg: String,
         cardTitle: String,
         cardOriginalTitle: String,
         cardLanguage: String,
-        cardImg: String,
         cardScore: Number,
         cardOverview: String,
     }
@@ -59,6 +73,11 @@ export default {
                         <i :class="{ 'fas fa-star': (cardScore / 2) >= star, 'far fa-star': (cardScore / 2) < star }" :style="{ color: (cardScore / 2) >= star ? 'yellow' : 'gray' }"></i>
                     </span>
                 </span>
+
+                <div class="cast">
+                    <button @click="showCast()">Cast</button>
+                    <span v-if="activeCast">"Attori"</span>
+                </div>
 
                 <!-- trama -->
                 <span v-if="cardOverview != ''"><h3>Overview:</h3> {{ cardOverview }}</span>
@@ -105,6 +124,12 @@ export default {
                 width: 30px;
                 height: 20px;
                 filter: brightness(100%);
+            }
+
+            .cast {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
             }
         }
     }

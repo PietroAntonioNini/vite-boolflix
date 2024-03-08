@@ -31,6 +31,11 @@ export default {
       axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
         this.store.genresSeries = res.data.genres;
       });
+
+      axios.get('https://api.themoviedb.org/3/movie/268/credits?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+        this.store.cast = res.data.cast.slice(0, 5);
+        console.log(store.cast)
+      });
   },
 
   components: {
@@ -123,8 +128,8 @@ export default {
 
       } else if (this.store.activeButton == 4) {
         
-        urlFilm = 'https://api.themoviedb.org/3/movie/upcoming?api_key=9b7fdd843817417b0e4e84b2c0542c07';
-        urlSerie = 'https://api.themoviedb.org/3/tv/upcoming?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+        urlFilm = 'https://api.themoviedb.org/3/movie/popular?api_key=9b7fdd843817417b0e4e84b2c0542c07';
+        urlSerie = 'https://api.themoviedb.org/3/tv/popular?api_key=9b7fdd843817417b0e4e84b2c0542c07';
 
       } else {
 
@@ -140,7 +145,13 @@ export default {
       axios.get(urlSerie).then(res => {
         this.store.series = res.data.results;
       });
+    },
 
+    viewCast() {
+      axios.get('https://api.themoviedb.org/3/movie/268/credits?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+        this.store.cast = res.data
+        console.log(cast)
+      });
     }
   }
 }
