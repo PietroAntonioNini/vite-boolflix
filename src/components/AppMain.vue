@@ -23,7 +23,7 @@ export default {
         <div id="container-film" v-if="store.films != '' && store.activeButton == 0 || store.activeButton == 1 || store.activeButton == 3 || store.activeButton == 4">
             <div id="category"><h2>Film</h2></div>
 
-            <CardItem v-for="film in store.films" :cardTitle="film.title" :cardOriginalTitle="film.original_title" :cardLanguage="film.original_language" :cardScore="film.vote_average" :cardOverview="film.overview" :cardImg="film.poster_path"></CardItem>
+            <CardItem v-for="film in store.films" :cardId="film.id" :cardTitle="film.title" :cardOriginalTitle="film.original_title" :cardLanguage="film.original_language" :cardScore="film.vote_average" :cardOverview="film.overview" :cardImg="film.poster_path"></CardItem>
         </div>
 
         <!-- container delle serie TV -->

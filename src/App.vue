@@ -31,11 +31,6 @@ export default {
       axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
         this.store.genresSeries = res.data.genres;
       });
-
-      axios.get('https://api.themoviedb.org/3/movie/268/credits?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-        this.store.cast = res.data.cast.slice(0, 5);
-        console.log(store.cast)
-      });
   },
 
   components: {
@@ -147,12 +142,11 @@ export default {
       });
     },
 
-    viewCast() {
-      axios.get('https://api.themoviedb.org/3/movie/268/credits?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
-        this.store.cast = res.data
-        console.log(cast)
-      });
-    }
+    // viewCast() {
+    //   axios.get('https://api.themoviedb.org/3/movie/' + this.store.idFilm + '/credits?api_key=9b7fdd843817417b0e4e84b2c0542c07').then(res => {
+    //     this.store.cast = res.data
+    //   });
+    // }
   }
 }
 

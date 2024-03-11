@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import { store } from '../store';
 
 export default {
@@ -28,6 +29,7 @@ export default {
 
         activeCast: '',
 
+        //attiva o disattiva la visualizzazione del cast
         showCast() {
 
             if(this.activeCast != true) {
@@ -39,9 +41,33 @@ export default {
             this.$forceUpdate();
         },
 
+        //salva l'id del film selezionato
+        saveIdFilm() {
+            this.store.idFilm = this.cardId;
+        },
+
+        //funzione per mostrare il cast del film selezionato
+        getMovieCredits() {
+            axios.get('https://api.themoviedb.org/3/movie/' + this.store.idFilm + '/credits?api_key=9b7fdd843817417b0e4e84b2c0542c07')
+            .then(res => {
+                // prendo i primi 5 nomi degli attore nel cast
+                this.store.cast = res.data.cast.slice(0, 5).map(actor => actor.name).join(', ');
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        },
+
+        //svuoto il cast quando esco dall'elemento del film attuale
+        clearCast() {
+            store.cast = '';
+            this.activeCast = false;
+        },
+
     },
 
     props: {
+        cardId: Number,
         cardImg: String,
         cardTitle: String,
         cardOriginalTitle: String,
@@ -53,8 +79,11 @@ export default {
 </script>
 
 <template>
-    <div id="box-film" v-if="cardImg != OK">
+    <div id="box-film" v-if="cardImg != OK" @mouseleave="clearCast">
         <div class="film-content">
+            <!-- id per il cast -->
+            <span v-show="none">{{ cardId }}</span>
+
             <!-- copertina -->
             <img :src="'https://image.tmdb.org/t/p/original' + cardImg" :alt="'immagine film:' + cardTitle">
     
@@ -75,8 +104,8 @@ export default {
                 </span>
 
                 <div class="cast">
-                    <button @click="showCast()">Cast</button>
-                    <span v-if="activeCast">"Attori"</span>
+                    <button @click="showCast(), saveIdFilm(), getMovieCredits()">Cast</button>
+                    <span v-if="activeCast">{{ store.cast }}</span>
                 </div>
 
                 <!-- trama -->
